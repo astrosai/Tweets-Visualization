@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter Tweet Analyzer</title>
+
+  <!-- Add any styling libraries or custom styles here -->
+  <style>
+    body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      background-color: #eef2f4; /* Twitter-like background color */
+      font-family: 'Arial', sans-serif;
+    }
+
+    h3 {
+      color: #1DA1F2; /* Twitter blue color */
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    label {
+      font-size: 20px;
+      color: #1DA1F2;
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #1DA1F2; /* Twitter blue color */
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #0d8bf0; /* Slightly darker blue on hover */
+    }
+
+    #loader {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #twitter-logo {
+      width: 150px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="twitter-logo" src="C:/Users/peram/OneDrive/Pictures/Screenshots/Twitter-Logo.png" alt="Twitter Logo">
+
+  <h3>Tweets Analyzer</h3>
+  <form id="my-form">
+    <label for="input-text">Enter Hashtags</label>
+    <input type="text" id="input-text" name="input-text" placeholder="Enter Hashtags">
+    <button type="submit">Submit</button>
+    <div id="loader">Loading...</div>
+  </form>
+
+  <!-- Add any other UI elements or scripts here -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+    const form = document.getElementById('my-form');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const inputText = document.getElementById('input-text').value;
+      var data = {
+        "hashtags": inputText
+      };
+
+      alert("Please wait for some time. Your data will be fetched.");
+
+      await axios.post('url', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        document.getElementById('input-text').value = "";
+      }).catch((error) => {
+        console.log(error);
+        alert("There was an error: " + error);
+      });
+    });
+  </script>
+</body>
+
+</html>
